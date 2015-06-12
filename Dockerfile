@@ -9,11 +9,11 @@ RUN \
     libboost-all-dev lua5.1 liblua5.1-0-dev libluabind-dev libluajit-5.1-dev
 
 RUN \
-  git clone git://github.com/DennisOSRM/Project-OSRM.git /src && \
+  git clone https://github.com/KnockSoftware/osrm-backend.git /src && \
   mkdir -p /build && \
   cd /build && \
   cmake /src && make && \
-  mv /src/profiles/car.lua profile.lua && \
+  mv /src/profiles/bicycle.lua profile.lua && \
   mv /src/profiles/lib/ lib && \
   rm -rf /src
 

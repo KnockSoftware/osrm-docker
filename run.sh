@@ -7,6 +7,8 @@ _sig() {
 
 trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
 
+mkdir -p /data
+
 if [ ! -f $DATA_PATH/$1.osrm ]; then
     curl $2 > $DATA_PATH/$1.osm.pbf
     ./osrm-extract $DATA_PATH/$1.osm.pbf
