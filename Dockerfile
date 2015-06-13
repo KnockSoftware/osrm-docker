@@ -1,5 +1,7 @@
 FROM ubuntu:14.04
 
+ENV OSRM_REVISION match-pristine-v0
+
 RUN \
   DEBIAN_FRONTEND=noninteractive apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git curl \
@@ -9,7 +11,7 @@ RUN \
     libboost-all-dev lua5.1 liblua5.1-0-dev libluabind-dev libluajit-5.1-dev
 
 RUN \
-  git clone https://github.com/KnockSoftware/osrm-backend.git /src && \
+  git clone --depth 1 --branch "$OSRM_REVISION" https://github.com/KnockSoftware/osrm-backend.git /src && \
   mkdir -p /build && \
   cd /build && \
   cmake /src && make && \
