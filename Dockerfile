@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 
 ENV OSRM_REVISION match-pristine-v0
+ENV OSM_PBF_URL http://download.geofabrik.de/north-america/us/oregon-latest.osm.pbf
+ENV OSRM_FILENAME oregon
 
 RUN \
   DEBIAN_FRONTEND=noninteractive apt-get update && \
@@ -22,3 +24,4 @@ RUN \
 WORKDIR /build
 ADD run.sh run.sh
 EXPOSE 5000
+CMD ./run.sh
