@@ -21,6 +21,7 @@ RUN \
   mv /src/profiles/lib/ lib && \
   rm -rf /src
 
+VOLUME /data
 WORKDIR /build
 ADD run.sh run.sh
 EXPOSE 5000
