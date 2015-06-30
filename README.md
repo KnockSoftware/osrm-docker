@@ -2,32 +2,23 @@
 
 This project lets you prepare and run a docker container with OSRM and the map of your choice.
 
-## Run
+This repository references a modified version of OSRM with a wacky matching plugin. This is useful for Ride, but maybe not for other applications.
 
-First you'll need to prepare the url to your `.osm.pfb` source file.
+## Run with `fig` or `docker-compose`
 
-Run your data container. The data container will keep your map files even if you restart your OSRM server.
+You only need to specify the environment variable `OSM_PBF_URL`. The docker
+container will download the data, prepare, extract, and begin accepting routing
+requests on port 5000.
 
+```yaml
+osrm:
+  image: ezheidtmann/osrm
+  environment:
+
+    # Filename is optional but may help if you are running two different
+    # regions or data sets in the same docker.
+    OSRM_FILENAME: oregon
+
+    # For a full list of available extracts, see http://download.geofabrik.de/
+    OSM_PBF_URL: http://download.geofabrik.de/north-america/us/oregon-latest.osm.pbf
 ```
-docker run \
-    -v /data \
-    --name osrm-data \
-    acroca/osrm-docker:latest \
-    echo "running data container..."
-```
-
-Now you can run your osrm server with any map.
-
-```
-docker run \
-    -d \
-    --volumes-from osrm-data \
-    -p 5000:5000 \
-    acroca/osrm-docker:latest \
-    ./run.sh \
-        Barcelona \
-        "https://s3.amazonaws.com/metro-extracts.mapzen.com/barcelona_spain.osm.pbf"
-```
-
-The first argument is the name you want to give to the map. It's used mostly as a file name in the data storage.
-The second argument is the URL to your source map file.
