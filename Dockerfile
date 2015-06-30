@@ -19,7 +19,7 @@ RUN \
   cmake /src && make && \
   mv /src/profiles/bicycle.lua profile.lua && \
   mv /src/profiles/lib/ lib && \
-  echo 'disk=/data/stxxl' > /build/.stxxl && \
+  echo 'disk=/data/stxxl,0,syscall' > /build/.stxxl && \
   rm -rf /src
 
 VOLUME /data
